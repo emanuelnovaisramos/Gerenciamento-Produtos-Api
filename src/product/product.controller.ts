@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common'
 import { ProductService } from './product.service';
-import { CreateProductDTO } from './dtos/product';
+import { ProductDTO } from './dtos/product';
 
 @Controller('produtos')
 export class ProductController {
@@ -8,7 +8,7 @@ export class ProductController {
     
     @UsePipes(ValidationPipe)
     @Post('')
-    async createProduct(@Body() body: CreateProductDTO) {
+    async createProduct(@Body() body: ProductDTO) {
         return await this.productService.createProduct(body)
     }
 
@@ -22,8 +22,9 @@ export class ProductController {
         return await this.productService.getProduct(id)
     }
 
+    @UsePipes(ValidationPipe)
     @Put(':id')
-    async updateProduct(@Param('id') id, @Body() body: CreateProductDTO) {
+    async updateProduct(@Param('id') id, @Body() body: ProductDTO) {
         return await this.productService.updateProduct(id, body)
     }
 
